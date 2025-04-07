@@ -18,7 +18,7 @@ model Category {
   name    String
   photo   String
   Product Product[]
-  user    User      @relation(fields: [userId], references: [id])
+  user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId  Int
 }
 
@@ -28,7 +28,7 @@ model Product {
   price      Float
   color      String
   photo      String
-  Category   Category @relation(fields: [categoryId], references: [id])
+  Category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId Int
 }
 
@@ -40,7 +40,7 @@ enum Role {
 
 model Session {
   id         Int    @id @default(autoincrement())
-  user       User   @relation(fields: [userId], references: [id])
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     Int
   ipAddress  String
   deviceData Json
@@ -52,6 +52,6 @@ model User {
   email    String
   password String
   role     Role       @default(USER)
-  Session  Session[]
+  Session  Session[] 
   Category Category[]
 }
